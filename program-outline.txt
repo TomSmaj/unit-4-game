@@ -1,0 +1,21 @@
+Phase 1:
+Select Character
+Move enemies to enemy area
+
+Phase 2:
+Choose enemy to fight: <-------------+
+                                     |
+Battle Loop <-------------------+    |  Battle either ends in Player victory or loss
+Check player and enemy health   |    |  if(victory): continue withing phase 2 loop
+Player attacks (waiting click)  |    |  if(loss): move to end of game with knowledge that player lost 
+Check player and enemy health   |    |
+Enemy counter attacks-----------+    |
+				                     |
+check if any enemies remain----------+
+
+Phase 3:
+Game ends
+
+
+when writing characters to the screen:
+check if 
