@@ -2,9 +2,9 @@
 $(document).ready(function () {
 
     let selected = false; //set to true after user selects character
-    let enemySelected = false; //set to true after enemies are moved
-    battleEngaged = false;
+    let defenderSelected = false; //set to true after enemies are moved
     let numAlive = 3;
+    let selectedCharAlive = true;
 
     //each character is an object stored in an array
     //each character has the function .getHTML(col) that will return the HTML text for the character's bootstrap car
@@ -13,11 +13,22 @@ $(document).ready(function () {
         {   
             name: "robot",
             fname: "Robot Hostage Situation",
-            hp: 130,
-            attack: 7,
+            hp: 200,
+            baseAttack: 0.5,
+            attack: 0.5,
             imgSource: "assets/images/robot-hostage-situation.jpg",
-            getHTML: function(colSize){
-                return `<div class = "col-${colSize}"> <div class="card" style="width: 18rem;" name = ${this.name}> <img class="card-img-top" src="${this.imgSource}" alt="${this.name}"> <div class="card-body"> <h5 class="card-title">${this.fname}</h5> <p class="card-text">HP: ${this.hp}&nbsp;&nbsp&nbsp;&nbsp;&nbsp;Attack: ${this.attack}</p></div> </div> </div>`
+            getHTML: function(){
+                return `<div class = "col ${this.name}"> 
+                            <div class="card" style="width: 18rem;" name = ${this.name}> 
+                                <img class="card-img-top" src="${this.imgSource}" alt="${this.name}">
+                                <div class="card-body"> 
+                                    <h5 class="card-title">${this.fname}</h5> 
+                                    <p class="card-text">
+                                        HP: <span class="${this.name}HP">${this.hp}</span>&nbsp;&nbsp&nbsp;&nbsp;&nbsp;Attack: <span class="${this.name}Attack">${this.attack}</span>
+                                    </p>
+                                </div> 
+                            </div>
+                        </div>`
             }
         },
 
@@ -25,10 +36,21 @@ $(document).ready(function () {
             name: "skeleton",
             fname: "Astro Skeleton",
             hp: 120,
-            attack: 8,
+            baseAttack: 2.5,
+            attack: 2.5,
             imgSource: "assets/images/astro-skeleton.jpg",
-            getHTML: function(colSize){
-                return `<div class = "col-${colSize}"> <div class="card" style="width: 18rem;" name = ${this.name}> <img class="card-img-top" src="${this.imgSource}" alt="${this.name}"> <div class="card-body"> <h5 class="card-title">${this.fname}</h5> <p class="card-text">HP: ${this.hp}&nbsp;&nbsp&nbsp;&nbsp;&nbsp;Attack: ${this.attack}</p></div> </div> </div>`
+            getHTML: function(){
+                return `<div class = "col ${this.name}"> 
+                            <div class="card" style="width: 18rem;" name = ${this.name}> 
+                                <img class="card-img-top" src="${this.imgSource}" alt="${this.name}"> 
+                                <div class="card-body">
+                                    <h5 class="card-title">${this.fname}</h5>
+                                    <p class="card-text">
+                                        HP: <span class="${this.name}HP">${this.hp}</span>&nbsp;&nbsp&nbsp;&nbsp;&nbsp;Attack: <span class="${this.name}Attack">${this.attack}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>`
             }
         },
 
@@ -36,21 +58,43 @@ $(document).ready(function () {
             name: "work",
             fname: "Average Work Week",
             hp: 110,
-            attack: 9,
+            baseAttack: 3.0,
+            attack: 3.0,
             imgSource: "assets/images/average-work-week.jpg",
             getHTML: function(colSize){
-                return `<div class = "col-${colSize}"> <div class="card" style="width: 18rem;" name = ${this.name}> <img class="card-img-top" src="${this.imgSource}" alt="${this.name}"> <div class="card-body"> <h5 class="card-title">${this.fname}</h5> <p class="card-text">HP: ${this.hp}&nbsp;&nbsp&nbsp;&nbsp;&nbsp;Attack: ${this.attack}</p></div> </div> </div>`
+                return `<div class = "col ${this.name}">
+                            <div class="card" style="width: 18rem;" name = ${this.name}> 
+                                <img class="card-img-top" src="${this.imgSource}" alt="${this.name}">
+                                <div class="card-body"> 
+                                    <h5 class="card-title">${this.fname}</h5>
+                                    <p class="card-text">
+                                    HP: <span class="${this.name}HP">${this.hp}</span>&nbsp;&nbsp&nbsp;&nbsp;&nbsp;Attack: <span class="${this.name}Attack">${this.attack}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>`
             }
         },
 
         {
             name: "crash",
-            fname: "Crash",
+            fname: "Crash Landing",
             hp: 100,
-            attack: 10,
+            baseAttack: 15,
+            attack: 15,
             imgSource: "assets/images/crash.jpg",
             getHTML: function(colSize){
-                return `<div class = "col-${colSize}"> <div class="card" style="width: 18rem;" name = ${this.name}> <img class="card-img-top" src="${this.imgSource}" alt="${this.name}"> <div class="card-body"> <h5 class="card-title">${this.fname}</h5> <p class="card-text">HP: ${this.hp}&nbsp;&nbsp&nbsp;&nbsp;&nbsp;Attack: ${this.attack}</p></div> </div> </div>`
+                return `<div class = "col ${this.name}">
+                            <div class="card" style="width: 18rem;" name = ${this.name}>
+                                <img class="card-img-top" src="${this.imgSource}" alt="${this.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${this.fname}</h5>
+                                    <p class="card-text">
+                                    HP: <span class="${this.name}HP">${this.hp}</span>&nbsp;&nbsp&nbsp;&nbsp;&nbsp;Attack: <span class="${this.name}Attack">${this.attack}</span>
+                                    </p>
+                                </div>
+                            </div> 
+                        </div>`
             }
         }
     ];
@@ -61,7 +105,6 @@ $(document).ready(function () {
 
     
     const setUpCharacters = () => {
-        console.log("set up characters reached, selected: " + selected + ", enemy selected: " + enemySelected);
         let outString = "";
         //clear characterArea, write selectedChar back to characterArea, write enemies to enemyArea
         for(i = 0; i < characters.length; i++){
@@ -72,42 +115,47 @@ $(document).ready(function () {
     }
     
     
-    const writeEnemies = () => {
-        console.log("write enemies reached, selected: " + selected + ", enemy selected: " + enemySelected);
-        let columnSize = 12 / characters.length;
-        let outString = "";
+    const moveEnemies = () => {
         for(i = 0; i < characters.length; i++){
-            outString += characters[i].getHTML(columnSize);
-        }
-        $(".enemyArea").html(outString);
-        return;
-    }
-    
-    
-    const writeSelectChar = () => {
-        console.log("write select char reached, selected: " + selected + ", enemy selected: " + enemySelected);
-        $(".characterArea").html("");
-        $(".characterArea").html(selectedChar.getHTML(12));
-        return;
-    }
-    
-    const writeDefender = () => {
-        console.log("write defender reached, selected: " + selected + ", enemy selected: " + enemySelected);
-        if(enemySelected){
-            $(".defenderArea").html(defender.getHTML(12));
-        }
-        else{
-            $(".defenderArea").html("");
+            $("." + characters[i].name).detach().appendTo(".enemyArea");
         }
         return;
     }
     
+    const moveDefender = () => {
+        if(defenderSelected){
+            $("." + defender.name).detach().appendTo(".defenderArea");
+        }
+        return;
+    }
+    
+    function removeDefender(){
+        $("." + defender.name).detach();
+        defenderSelected = false;
+        numAlive -= 1;
+        if(numAlive <= 0){endGame();}
+        return;
+    }
+
+    function endGame(){
+        if(selectedCharAlive){console.log("Players Wins!");}
+        else{console.log("Oh no! Players loses!");}
+    }
+
+    function updateHP(char){
+        $("." + char.name + "HP").text(char.hp);
+        return;
+    }
+
+    function updateAttack(char){
+        $("." + char.name + "Attack").text(char.attack);
+        return;
+    }
 
     //writes the four characters to the characterArea row and class of the html document
     setUpCharacters();
 
     $(".card").on("click", function() {
-    console.log("clicked, selected: " + selected + ", enemy selected: " + enemySelected);
         if(!selected){
             for(i = 0; i < characters.length; i++){
                 if(characters[i].name === $(this).attr("name")){
@@ -116,21 +164,46 @@ $(document).ready(function () {
                     selected = true;
                 }
             }  
-            writeSelectChar();        
-            writeEnemies();
+            moveEnemies();        
         }
-        else if(!enemySelected && numAlive > 0){
-            console.log("enemy select clicked");
+        else if(!defenderSelected && numAlive > 0){
             for(i = 0; i < characters.length; i++){
-                if(characters[i] === $(this).attr("name")){
+                if(characters[i].name === $(this).attr("name")){
                     defender = characters[i];
                     characters.splice(i, 1);
-                    enemySelected = true;
+                    defenderSelected = true;
                 }
             }
-            writeEnemies();
-            writeDefender();
+            moveDefender();
         }
     });
+
+    $(".attackButton").on("click", function() {
+        if(defenderSelected){
+            defender.hp -= selectedChar.attack;
+            selectedChar.attack += selectedChar.baseAttack;
+            updateHP(defender);
+            updateAttack(selectedChar);
+            console.log("You attack.");
+            console.log("Defender hp: " + defender.hp);
+            if(defender.hp <= 0){
+                removeDefender();
+            }
+            else{
+                selectedChar.hp -= defender.attack;
+                updateHP(selectedChar);
+                console.log("Defender attacks.");
+                console.log("Your hp: " + selectedChar.hp);
+                console.log("Your attack: " + selectedChar.attack);
+                if(selectedChar.hp <= 0){
+                    selectedCharAlive = false;
+                    defenderSelected = false;
+                    endGame();
+                }
+                
+            }
+        }
+    });
+
 });
 
