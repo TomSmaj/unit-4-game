@@ -18,7 +18,7 @@ $(document).ready(function () {
             attack: 0.5,
             imgSource: "assets/images/robot-hostage-situation.jpg",
             getHTML: function(){
-                return `<div class = "col ${this.name}"> 
+                return `<div class = "col ${this.name} character"> 
                             <div class="card" style="width: 18rem;" name = ${this.name}> 
                                 <img class="card-img-top" src="${this.imgSource}" alt="${this.name}">
                                 <div class="card-body"> 
@@ -40,7 +40,7 @@ $(document).ready(function () {
             attack: 2.5,
             imgSource: "assets/images/astro-skeleton.jpg",
             getHTML: function(){
-                return `<div class = "col ${this.name}"> 
+                return `<div class = "col ${this.name} character"> 
                             <div class="card" style="width: 18rem;" name = ${this.name}> 
                                 <img class="card-img-top" src="${this.imgSource}" alt="${this.name}"> 
                                 <div class="card-body">
@@ -62,7 +62,7 @@ $(document).ready(function () {
             attack: 3.0,
             imgSource: "assets/images/average-work-week.jpg",
             getHTML: function(colSize){
-                return `<div class = "col ${this.name}">
+                return `<div class = "col ${this.name} character">
                             <div class="card" style="width: 18rem;" name = ${this.name}> 
                                 <img class="card-img-top" src="${this.imgSource}" alt="${this.name}">
                                 <div class="card-body"> 
@@ -84,7 +84,7 @@ $(document).ready(function () {
             attack: 15,
             imgSource: "assets/images/crash.jpg",
             getHTML: function(colSize){
-                return `<div class = "col ${this.name}">
+                return `<div class = "col ${this.name} character">
                             <div class="card" style="width: 18rem;" name = ${this.name}>
                                 <img class="card-img-top" src="${this.imgSource}" alt="${this.name}">
                                 <div class="card-body">
@@ -108,7 +108,7 @@ $(document).ready(function () {
         let outString = "";
         //clear characterArea, write selectedChar back to characterArea, write enemies to enemyArea
         for(i = 0; i < characters.length; i++){
-            outString += characters[i].getHTML( 3);
+            outString += characters[i].getHTML();
         }
         $(".characterArea").html(outString);
         return;
@@ -119,6 +119,7 @@ $(document).ready(function () {
         for(i = 0; i < characters.length; i++){
             $("." + characters[i].name).detach().appendTo(".enemyArea");
         }
+        $(".defenderArea").detach().appendTo(".character-defender");
         return;
     }
     

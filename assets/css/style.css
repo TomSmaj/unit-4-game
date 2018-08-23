@@ -1,0 +1,23 @@
+.card{
+    width: 25%;
+    margin: 0;
+}
+
+.character{
+    width: 25%;
+    margin: 0;
+    margin-right: 0;
+    float: left;
+}
+
+.game-board{
+    width: 100%;
+}
+
+.robot{
+    width: 20%;
+}
+
+.skeleton{
+    width: 20%;
+}

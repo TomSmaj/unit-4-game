@@ -19,3 +19,21 @@ Game ends
 
 when writing characters to the screen:
 check if 
+
+
+characters select:
+col-3 slot1 
+col-3 slot2
+col-3 slot3
+col-3 slot4
+
+enemies:
+col-4 slot5
+col-4 slot6
+col-4 slot7
+
+defender:
+col-12 slot 8
+
+click-----> card
+
