@@ -105,12 +105,11 @@ $(document).ready(function () {
 
     
     const setUpCharacters = () => {
-        let outString = "";
         //clear characterArea, write selectedChar back to characterArea, write enemies to enemyArea
         for(i = 0; i < characters.length; i++){
-            outString += characters[i].getHTML();
+            updateHP(characters[i]);
+            updateAttack(characters[i]);
         }
-        $(".characterArea").html(outString);
         return;
     }
     
@@ -120,12 +119,15 @@ $(document).ready(function () {
             $("." + characters[i].name).detach().appendTo(".enemyArea");
         }
         $(".defenderArea").detach().appendTo(".character-defender");
+        $(".defend-head").css("visibility", "visible");
         return;
     }
     
     const moveDefender = () => {
         if(defenderSelected){
             $("." + defender.name).detach().appendTo(".defenderArea");
+            $(".instr1").text("You have selected " + defender.fname);
+            $(".instr2").text("");
         }
         return;
     }
@@ -153,7 +155,6 @@ $(document).ready(function () {
         return;
     }
 
-    //writes the four characters to the characterArea row and class of the html document
     setUpCharacters();
 
     $(".card").on("click", function() {
@@ -161,6 +162,7 @@ $(document).ready(function () {
             for(i = 0; i < characters.length; i++){
                 if(characters[i].name === $(this).attr("name")){
                     selectedChar = characters[i];
+                    $(".instr1").text("You have selected " + selectedChar.fname);
                     characters.splice(i, 1);
                     selected = true;
                 }
@@ -185,18 +187,17 @@ $(document).ready(function () {
             selectedChar.attack += selectedChar.baseAttack;
             updateHP(defender);
             updateAttack(selectedChar);
-            console.log("You attack.");
-            console.log("Defender hp: " + defender.hp);
+            $(".instr1").text("You Attack. " + defender.fname + " HP: " + defender.hp);
             if(defender.hp <= 0){
                 removeDefender();
+                $(".instr2").text(defender.fname + " has been defeated");
             }
             else{
                 selectedChar.hp -= defender.attack;
                 updateHP(selectedChar);
-                console.log("Defender attacks.");
-                console.log("Your hp: " + selectedChar.hp);
-                console.log("Your attack: " + selectedChar.attack);
+                $(".instr2").text(defender.fname + " attacks. Your HP: " + selectedChar.hp + ", Your attack: " + selectedChar.attack);
                 if(selectedChar.hp <= 0){
+                    $(".instr1").text("You have been defeated");
                     selectedCharAlive = false;
                     defenderSelected = false;
                     endGame();

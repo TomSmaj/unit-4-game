@@ -14,10 +14,7 @@
     width: 100%;
 }
 
-.robot{
-    width: 20%;
+.defend-head{
+    visibility: hidden;
 }
 
-.skeleton{
-    width: 20%;
-}
