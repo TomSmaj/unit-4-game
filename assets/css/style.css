@@ -1,6 +1,18 @@
+body{
+    background: black;
+}
+
+img{
+    width: 262px;
+    height: 200px;
+}
+
 .card{
-    width: 25%;
-    margin: 0;
+    width: 230px;
+    height: 290px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: none;
 }
 
 .character{
@@ -11,10 +23,48 @@
 }
 
 .game-board{
-    width: 100%;
+    width: 80%;
+    min-height: 780px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
 }
 
 .defend-head{
     visibility: hidden;
 }
+
+.character-defender{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.enemyArea{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.instr1{
+    height: 35px;
+    text-align: center;
+}
+
+.instr2{
+    height: 35px;
+    text-align: center;
+}
+
+.i1{
+    margin-left: auto;
+    margin-right: auto;  
+}
+
+button{
+    position: relative;
+    margin: 10px;
+    left: 20px;
+}
+
 
